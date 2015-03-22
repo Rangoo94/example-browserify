@@ -1,0 +1,60 @@
+// Load configuration
+@import '../../config';
+
+// Main style
+.box {
+  &.tabs {
+    & > nav {
+      margin: -15px -15px 0;
+
+      ul {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background: darken(@greyBackground, 10%);
+
+        li {
+          display: table-cell;
+          border-right: 1px solid darken(@greyBackground, 15%);
+
+          &:last-child {
+            border-right: 0;
+          }
+
+          a {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: @darkText;
+
+            &:hover {
+              background: darken(@greyBackground, 5%);
+            }
+          }
+
+          &.current {
+            a {
+              background: @greyBackground !important;
+            }
+          }
+        }
+      }
+    }
+
+    & > .box-inner {
+      & > .tab {
+        display: none;
+
+        &.current {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// Responsive style

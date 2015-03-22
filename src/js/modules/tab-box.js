@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    function TabBox(el) {
+    function TabBox(/* el */) {
     }
 
     TabBox.create = function(el) {
