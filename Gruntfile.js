@@ -37,7 +37,10 @@ module.exports = function(grunt) {
             ]
         },
         lesslint: {
-            files: [ 'src/less/**/*.less' ]
+            files: [ 'src/less/**/*.less' ],
+            options: {
+                csslint: grunt.file.readJSON('.csslintrc')
+            }
         },
         browserify: {
             prod: {
