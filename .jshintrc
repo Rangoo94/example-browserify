@@ -5,11 +5,12 @@
         "expect": false,
 
         "module": true,
-        "require": false
+        "require": false,
+
+        "ActiveXObject": true
     },
 
     "browser": true,
-    "node": true,
 
     "camelcase": true,
     "eqeqeq": true,
@@ -23,7 +24,7 @@
     "curly": true,
     "forin": true,
     "immed": true,
-    "maxcomplexity": 5,
+    "maxcomplexity": 7,
     "noarg": true,
     "noempty": true,
     "nonew": true,

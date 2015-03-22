@@ -6,7 +6,7 @@
          * Parse string by regular expression to array of entries in log
          *
          * @param {String} data  Plain text data
-         * @param {String} format  Regular expression
+         * @param {String|RegExp} format  Regular expression
          * @param {String[]} columns  Column names to create object from parts of expression
          * @param {String} separator  Entry separator
          * @param {Boolean} [parseEmpty]  Should also try to parse empty lines?
@@ -15,7 +15,9 @@
         parse: function parseLog(data, format, columns, separator, parseEmpty) {
             var row;
 
-            format = new RegExp(format);
+            if (!(format instanceof RegExp)) {
+                format = new RegExp(format);
+            }
 
             separator = separator || '\n';
 
