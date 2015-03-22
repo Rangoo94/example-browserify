@@ -56,16 +56,26 @@
     };
 
     /**
+     * Finish current promise
+     *
+     * @param success
+     * @param result
+     */
+    Promise.prototype.finish = function(success, result) {
+        this.isFinished = true;
+        this.isSuccess = success;
+        this.result = result;
+
+        this.run();
+    };
+
+    /**
      * Resolve current promise
      *
      * @param {*} [data]
      */
     Promise.prototype.resolve = function(data) {
-        this.isFinished = true;
-        this.isSuccess = true;
-        this.result = data;
-
-        this.run();
+        this.finish(true, data);
     };
 
     /**
@@ -74,11 +84,7 @@
      * @param {*} [reason]
      */
     Promise.prototype.reject = function(reason) {
-        this.isFinished = true;
-        this.isSuccess = false;
-        this.result = reason;
-
-        this.run();
+        this.finish(false, reason);
     };
 
     module.exports = Promise;
