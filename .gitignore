@@ -1,0 +1,17 @@
+# Intellij
+.project
+.idea
+
+# Sublime files
+.DS*
+
+# Local configuration
+.coveralls.yml
+
+# NodeJS Modules
+node_modules/
+npm-debug.log
+
+# Generated files
+dist/*
+coverage.html

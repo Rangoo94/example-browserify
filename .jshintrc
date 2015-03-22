@@ -1,0 +1,34 @@
+{
+    "globals": {
+        "describe": false,
+        "it": false,
+        "expect": false,
+
+        "module": true,
+        "require": false
+    },
+
+    "browser": true,
+    "node": true,
+
+    "camelcase": true,
+    "eqeqeq": true,
+    "indent": 4,
+    "latedef": true,
+    "newcap": true,
+    "quotmark": "single",
+    "strict": true,
+    "undef": true,
+    "unused": true,
+    "curly": true,
+    "forin": true,
+    "immed": true,
+    "maxcomplexity": 3,
+    "noarg": true,
+    "noempty": true,
+    "nonew": true,
+    "notypeof": true,
+    "shadow": false,
+
+    "eqnull": true
+}
