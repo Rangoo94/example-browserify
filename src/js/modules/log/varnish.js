@@ -22,12 +22,26 @@
 
     /**
      * Transform data in row to correct
+     *
      * @param {Object} row
      * @returns {Object}
      */
     VarnishLog.prototype.transform = function(row) {
         row.date = Date.parse(row.date.replace(':', ' '));
         return row;
+    };
+
+    /**
+     * Select specified number of element after sorting by specified function
+     *
+     * @param {Function} [sortFunc]
+     * @param {Number} [limit]
+     * @returns {Object[]}
+     */
+    VarnishLog.prototype.best = function(sortFunc, limit) {
+        this.data.sort(sortFunc);
+
+        return this.data.slice(0, limit);
     };
 
     module.exports = VarnishLog;
