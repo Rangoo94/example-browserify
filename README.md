@@ -1,5 +1,9 @@
 # Example page
 
+[![Travis](https://travis-ci.org/Rangoo94/example-browserify.svg)](https://travis-ci.org/Rangoo94/example-browserify)
+[![Code Climate](https://codeclimate.com/github/Rangoo94/example-browserify/badges/gpa.svg)](https://codeclimate.com/github/Rangoo94/example-browserify)
+[![Coverage Status](https://coveralls.io/repos/Rangoo94/example-browserify/badge.svg)](https://coveralls.io/r/Rangoo94/example-browserify)
+
 It's just example page which uses **Browserify** for modularity. The goal is to get and transform external data, to show in few tabs.
 
 ## Development
