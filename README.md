@@ -21,7 +21,7 @@ All tests are in `test/spec` directory and have same structure as `src/js`. It c
 
 ### Testing locally
 
-There is prepared simple server, which you can start by `grunt server` command and it will be available at `http://localhost:8000`. To have live reload, run `grunt server:live`.
+There is prepared simple server, which you can start by `grunt server` command and it will be available at `http://localhost:8000`. To have live reload, run `grunt server:live` combining it with `grunt watch` which will detect code changes.
 
 ## Preparing distributable code
 

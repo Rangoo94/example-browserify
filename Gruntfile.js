@@ -96,6 +96,19 @@ module.exports = function(grunt) {
                         }
                     }
                 }
+            },
+            live: {
+                options: {
+                    keepalive: true,
+                    livereload: true,
+                    port: 8000,
+                    base: {
+                        path: './dist',
+                        options: {
+                            index: 'index.html'
+                        }
+                    }
+                }
             }
         },
         mochaTest: {
@@ -124,8 +137,31 @@ module.exports = function(grunt) {
             }
         },
         clean: {
-            prod: {
-                src: [ 'dist' ]
+            html: {
+                src: [ 'dist/*.html' ]
+            },
+            js: {
+                src: [ 'dist/js/**/*' ]
+            },
+            css: {
+                src: [ 'dist/css/**/*' ]
+            }
+        },
+        watch: {
+            options: {
+                livereload: true
+            },
+            html: {
+                files: [ 'src/*.html' ],
+                tasks: [ 'build:html' ]
+            },
+            js: {
+                files: [ 'src/js/**/*' ],
+                tasks: [ 'build:js' ]
+            },
+            css: {
+                files: [ 'src/less/**/*' ],
+                tasks: [ 'build:css' ]
             }
         }
     });
@@ -158,7 +194,7 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean:prod',
+        'clean',
         'build:js',
         'build:css',
         'build:html'
@@ -167,5 +203,10 @@ module.exports = function(grunt) {
     grunt.registerTask('server', [
         'build',
         'connect:server'
+    ]);
+
+    grunt.registerTask('server:live', [
+        'build',
+        'connect:live'
     ]);
 };
