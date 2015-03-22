@@ -1,12 +1,12 @@
 {
   "name": "ExamplePage",
   "author": "Dawid 'Rangoo' Rusnak",
-  "homepage": "https://github.com/Rangoo94/example-1",
-  "bugs": "https://github.com/Rangoo94/example-1/issues",
+  "homepage": "https://github.com/Rangoo94/example-browserify",
+  "bugs": "https://github.com/Rangoo94/example-browserify/issues",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rangoo94/example-1.git"
+    "url": "https://github.com/Rangoo94/example-browserify.git"
   },
   "scripts": {
     "coveralls": "./node_modules/.bin/mocha --recursive -r ./test/blanket -R mocha-lcov-reporter | ./node_modules/.bin/coveralls"
@@ -18,17 +18,18 @@
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.5.0",
     "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-connect": "^0.9.0",
     "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-cssmin": "^0.12.2",
     "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-uglify": "^0.8.0",
-    "grunt-extract-sourcemap": "^0.1.14",
+    "grunt-contrib-less": "^1.0.0",
     "grunt-jscs": "^1.5.0",
+    "grunt-lesslint": "^1.1.14",
     "grunt-mocha-test": "^0.12.7",
-    "grunt-serve": "^0.1.6",
+    "less-plugin-autoprefix": "^1.4.0",
     "minifyify": "^6.3.2",
     "mocha": "^2.2.1",
-    "mocha-lcov-reporter": "0.0.2",
-    "uglifyify": "^3.0.1"
+    "mocha-lcov-reporter": "0.0.2"
   }
 }

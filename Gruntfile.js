@@ -36,6 +36,9 @@ module.exports = function(grunt) {
                 'test/**/*.js'
             ]
         },
+        lesslint: {
+            files: [ 'src/less/**/*.less' ]
+        },
         browserify: {
             prod: {
                 src: 'src/js/app.js',
@@ -53,14 +56,32 @@ module.exports = function(grunt) {
                 }
             }
         },
-        extract_sourcemap: {
+        less: {
+            prod: {
+                files: {
+                    'dist/css/main.css': 'src/less/main.less'
+                },
+                options: {
+                    plugins: [
+                        new (require('less-plugin-autoprefix'))({
+                            browsers: [ 'last 4 versions' ]
+                        })
+                    ]
+                }
+            }
+        },
+        cssmin: {
             prod: {
                 options: {
-                    removeSourcesContent: true
+                    sourceMap: true
                 },
-                files: {
-                    'dist/js': 'dist/js/app.min.js'
-                }
+                files: [{
+                    expand: true,
+                    cwd: 'dist/css/',
+                    src: [ 'main.css' ],
+                    dest: 'dist/css',
+                    ext: '.min.css'
+                }]
             }
         },
         connect: {
@@ -97,15 +118,22 @@ module.exports = function(grunt) {
         copy: {
             prod: {
                 files: [
-                    { expand: true, cwd: 'src/', src: ['*.html'], dest: 'dist/' }
+                    { expand: true, cwd: 'src/', src: ['*.html'], dest: 'dist/' },
+                    { expand: true, cwd: 'data/', src: ['**/*'], dest: 'dist/data/' }
                 ]
+            }
+        },
+        clean: {
+            prod: {
+                src: [ 'dist' ]
             }
         }
     });
 
     grunt.registerTask('lint', [
         'jshint',
-        'jscs'
+        'jscs',
+        'lesslint'
     ]);
 
     grunt.registerTask('test', [
@@ -117,8 +145,12 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('build:js', [
-        'browserify:prod',
-        'extract_sourcemap:prod'
+        'browserify:prod'
+    ]);
+
+    grunt.registerTask('build:css', [
+        'less:prod',
+        'cssmin:prod'
     ]);
 
     grunt.registerTask('build:html', [
@@ -126,7 +158,14 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('build', [
+        'clean:prod',
         'build:js',
+        'build:css',
         'build:html'
+    ]);
+
+    grunt.registerTask('server', [
+        'build',
+        'connect:server'
     ]);
 };
