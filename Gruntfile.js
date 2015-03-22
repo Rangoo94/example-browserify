@@ -8,7 +8,8 @@ module.exports = function(grunt) {
     var libraries = Object.keys(grunt.file.readJSON('package.json').devDependencies),
         ignoredLibraries = [
             'grunt',
-            'grunt-cli'
+            'grunt-cli',
+            'grunt-template-jasmine-istanbul'
         ];
 
     // Load all Grunt tasks from NPM
@@ -56,6 +57,18 @@ module.exports = function(grunt) {
                             output: 'dist/js/app.min.js.map'
                         });
                     }
+                }
+            },
+            tests: {
+                src: 'test/**/*.js',
+                dest: 'tmp/specs.js',
+                options: {
+                    transform: [
+                        [ 'browserify-istanbul', {
+                            ignore: ['test/**'],
+                            defaultIgnore: true
+                        } ]
+                    ]
                 }
             }
         },
@@ -114,23 +127,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        mochaTest: {
-            test: {
-                options: {
-                    reporter: 'spec',
-                    require: 'test/blanket'
-                },
-                src: [ '!test/blanket.js', 'test/**/*.js' ]
-            },
-            coverage: {
-                options: {
-                    reporter: 'html-cov',
-                    quiet: true,
-                    captureFile: 'coverage.html'
-                },
-                src: [ '!test/blanket.js', 'test/**/*.js' ]
-            }
-        },
         copy: {
             prod: {
                 files: [
@@ -166,6 +162,41 @@ module.exports = function(grunt) {
                 files: [ 'src/less/**/*' ],
                 tasks: [ 'build:css' ]
             }
+        },
+        jasmine: {
+            html: {
+                options: {
+                    template: require('grunt-template-jasmine-istanbul'),
+                    templateOptions: {
+                        coverage: 'coverage.json',
+                        files: 'src/js/**/*',
+                        report: {
+                            type: 'html',
+                            options: {
+                                dir: 'coverage'
+                            }
+                        }
+                    },
+                    specs: [
+                        'tmp/specs.js'
+                    ]
+                }
+            },
+            lcov: {
+                options: {
+                    template: require('grunt-template-jasmine-istanbul'),
+                    templateOptions: {
+                        coverage: 'coverage.json',
+                        files: 'src/js/**/*',
+                        report: {
+                            type: 'lcovonly'
+                        }
+                    },
+                    specs: [
+                        'tmp/specs.js'
+                    ]
+                }
+            }
         }
     });
 
@@ -176,11 +207,13 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('test', [
-        'mochaTest:test'
+        'browserify:tests',
+        'jasmine:lcov'
     ]);
 
     grunt.registerTask('html-coverage', [
-        'mochaTest'
+        'browserify:tests',
+        'jasmine:html'
     ]);
 
     grunt.registerTask('build:js', [

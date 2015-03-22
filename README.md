@@ -16,8 +16,7 @@ I am using here **JSHint** & **JSCS** for JavaScript and **LessLint** for LESS f
 
 ### Unit tests
 
-Everything is running by **Mocha**, later it may be moved to **Jasmine**.
-All tests are in `test/spec` directory and have same structure as `src/js`. It can be run by `grunt test` command and you can test coverage by `grunt html-coverage`, report will be put to `coverage.html` file.
+Everything is running by **Jasmine**. All tests are in `test/spec` directory and have same structure as `src/js`. It can be run by `grunt test` command and you can test coverage by `grunt html-coverage`, report will be put to `coverage` directory.
 
 ### Testing locally
 

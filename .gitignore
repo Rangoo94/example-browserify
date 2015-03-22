@@ -13,5 +13,10 @@ node_modules/
 npm-debug.log
 
 # Generated files
-dist/*
-coverage.html
+_SpecRunner.html
+coverage.json
+dist/
+coverage/
+test/specs.js
+tmp/
+lcov.info
