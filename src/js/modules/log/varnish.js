@@ -2,8 +2,9 @@
     'use strict';
 
     var log = require('../log'),
-        FORMAT = '^([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}) - - \\[([^\\]]+)\\] "([^ ]+) ([^ ]+) ([^"]+)" ([0-9]+) ([0-9]+) "([^"]+)" "([^"]+)"',
-        COLS = [ 'ip', 'date', 'method', 'url', 'http', 'status', 'size', 'referer', 'userAgent' ];
+        COLS = [ 'ip', 'date', 'method', 'url', 'http', 'status', 'size', 'referer', 'userAgent' ],
+        FORMAT = '^([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}) - - ' +
+                 '\\[([^\\]]+)\\] "([^ ]+) ([^ ]+) ([^"]+)" ([0-9]+) ([0-9]+) "([^"]+)" "([^"]+)"';
 
     /**
      * Understands basic Varnish log syntax
