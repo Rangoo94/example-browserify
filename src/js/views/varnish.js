@@ -23,6 +23,18 @@
         var log = new VarnishLog(data),
             list;
 
+        // Prepare list of hostnames with most traffic
+        list = log.findHostnamesWithMostTraffic(5);
+        document.getElementById('varnish-most-traffic').appendChild(
+            buildList(list, function(el, item) {
+                var traffic = document.createElement('span');
+                traffic.innerText = item.traffic + ' bytes';
+
+                el.innerText = item.url;
+                el.appendChild(traffic);
+            })
+        );
+
         // Prepare list of most requested files
         list = log.findMostRequestedFiles(5);
         document.getElementById('varnish-most-requested').appendChild(

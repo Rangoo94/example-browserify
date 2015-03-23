@@ -2,6 +2,7 @@
     'use strict';
 
     var log = require('../log'),
+        url = require('../url'),
         VarnishGrid = require('../varnish-grid'),
         COLS = [ 'remote', 'date', 'method', 'url', 'http', 'status', 'size', 'referer', 'userAgent' ],
         FORMAT = '^([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}) - - ' +
@@ -29,6 +30,7 @@
      */
     VarnishLog.prototype.transform = function(row) {
         row.date = new Date(row.date.replace(':', ' '));
+        row.size = +row.size;
         return row;
     };
 
@@ -113,6 +115,44 @@
                         list[idx] = {
                             requests: map[url],
                             url: url
+                        };
+                        break;
+                    }
+                }
+            }
+        }
+
+        return list;
+    };
+
+    /**
+     * Find specified number of hostnames with most traffic
+     *
+     * @param {Number} limit
+     * @returns {Object[]}
+     */
+    VarnishLog.prototype.findHostnamesWithMostTraffic = function(limit) {
+        var map = {},
+            list = [],
+            hostname,
+            idx;
+
+        for (idx = 0; idx < this.data.length; idx++) {
+            hostname = url.getHostname(this.data[idx].url);
+            if (!map[hostname]) {
+                map[hostname] = 0;
+            }
+
+            map[hostname] += this.data[idx].size;
+        }
+
+        for (hostname in map) {
+            if (map.hasOwnProperty(hostname)) {
+                for (idx = 0; idx < limit; idx++) {
+                    if (list[idx] === void 0 || list[idx].traffic < map[hostname]) {
+                        list[idx] = {
+                            traffic: map[hostname],
+                            url: hostname
                         };
                         break;
                     }
