@@ -18,8 +18,8 @@
     /**
      * Add new behavior after promise is finished
      *
-     * @param success
-     * @param fail
+     * @param {Function} success
+     * @param {Function} fail
      */
     Promise.prototype.then = function(success, fail) {
         this.successCallbacks.push(success);
@@ -58,8 +58,8 @@
     /**
      * Finish current promise
      *
-     * @param success
-     * @param result
+     * @param {Boolean} success
+     * @param {*} result
      */
     Promise.prototype.finish = function(success, result) {
         this.isFinished = true;
