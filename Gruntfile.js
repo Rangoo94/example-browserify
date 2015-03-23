@@ -197,6 +197,24 @@ module.exports = function(grunt) {
                     ]
                 }
             }
+        },
+        compress: {
+            js: {
+                options: {
+                    mode: 'gzip'
+                },
+                files: [
+                    { expand: true, src: [ 'dist/js/*.min.js' ], dest: './', ext: '.min.js.gz' }
+                ]
+            },
+            css: {
+                options: {
+                    mode: 'gzip'
+                },
+                files: [
+                    { expand: true, src: [ 'dist/css/*.min.css' ], dest: './', ext: '.min.css.gz' }
+                ]
+            }
         }
     });
 
@@ -233,7 +251,9 @@ module.exports = function(grunt) {
         'clean',
         'build:js',
         'build:css',
-        'build:html'
+        'build:html',
+        'compress:js',
+        'compress:css'
     ]);
 
     grunt.registerTask('server', [
