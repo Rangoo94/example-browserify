@@ -34,10 +34,10 @@
         }).rss.channel;
 
         result.ttl = +result.ttl;
-        result.lastbuilddate = Date.parse(result.lastbuilddate);
+        result.lastbuilddate = new Date(result.lastbuilddate);
 
         for (var i = 0; i < result.item.length; i++) {
-            result.item[i].pubdate = Date.parse(result.item[i].pubdate);
+            result.item[i].pubdate = new Date(result.item[i].pubdate);
         }
 
         return result;
