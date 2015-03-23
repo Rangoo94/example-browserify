@@ -69,6 +69,37 @@
          */
         'get': function(url, data) {
             return this.request('GET', url, data);
+        },
+
+        /**
+         * Create JSONP request to specified URL
+         *
+         * @param {String} url
+         * @param {String} [callbackParameter]  Callback GET parameter
+         * @returns {Promise}
+         */
+        jsonp: function(url, callbackParameter) {
+            var promise = new Promise(),
+                script = document.createElement('script'),
+                uid = 0;
+
+            callbackParameter = callbackParameter || 'callback';
+
+            while(window['jsonp_' + uid]) {
+                uid++;
+            }
+
+            window['jsonp_' + uid] = function(data) {
+                delete window['jsonp_' + uid];
+                console.log(data);
+                promise.resolve(data);
+            };
+
+            document.body.appendChild(script);
+
+            script.setAttribute('src', url + '?' + encodeURIComponent(callbackParameter) + '=jsonp_' + uid);
+
+            return promise;
         }
     };
 }());
