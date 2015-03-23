@@ -4,6 +4,12 @@
     var shortenText,
         COLUMNS;
 
+    /**
+     * Generate function which truncate text to specified length
+     *
+     * @param {Number} len
+     * @returns {Function}
+     */
     shortenText = function(len) {
         len = len || 50;
 
@@ -25,14 +31,30 @@
         { column: 'userAgent', label: 'User agent', transform: shortenText(40) }
     ];
 
+    /**
+     * Class to generate grid view
+     *
+     * @param {Function} [group]  Grouping functions
+     * @constructor
+     */
     function VarnishGrid(group) {
         this.group = group;
     }
 
+    /**
+     * Set current grouping function
+     *
+     * @param {Function} [func]
+     */
     VarnishGrid.prototype.setGroupingFunction = function(func) {
         this.group = func;
     };
 
+    /**
+     * Create header element
+     *
+     * @returns {Element}
+     */
     VarnishGrid.prototype.createHeader = function() {
         var header = document.createElement('thead'),
             rowEl = document.createElement('tr'),
@@ -49,6 +71,12 @@
         return header;
     };
 
+    /**
+     * Create group row
+     *
+     * @param {String} group
+     * @returns {Element}
+     */
     VarnishGrid.prototype.createGroupRow = function(group) {
         var row = document.createElement('tr'),
             cell = document.createElement('td');
@@ -62,6 +90,12 @@
         return row;
     };
 
+    /**
+     * Create entry row
+     *
+     * @param {Object} row
+     * @returns {Element}
+     */
     VarnishGrid.prototype.createRow = function(row) {
         var rowEl = document.createElement('tr'),
             cell;
@@ -75,6 +109,12 @@
         return rowEl;
     };
 
+    /**
+     * Render grid table
+     *
+     * @param {Object} data
+     * @returns {Element}
+     */
     VarnishGrid.prototype.render = function(data) {
         var table = document.createElement('table'),
             tbody = document.createElement('tbody'),
