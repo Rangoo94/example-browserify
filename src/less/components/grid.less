@@ -1,0 +1,36 @@
+// Load configuration
+@import '../config';
+
+// Main style
+.grid {
+  width: 100%;
+  font-size: .8em;
+
+  thead {
+    tr {
+      font-size: 1.1em;
+      background: #ccc;
+
+      th {
+        padding: 3px 5px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &.group {
+        td {
+          font-weight: bold;
+          padding: 3px 5px;
+          background: #ddd;
+        }
+      }
+    }
+  }
+}
+
+// Responsive style
+
+// Additional styles
+@import 'box/tabs';
