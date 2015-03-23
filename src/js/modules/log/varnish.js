@@ -87,5 +87,41 @@
         return grid.render(this.sort(sort, limit));
     };
 
+    /**
+     * Find specified number of most requested files
+     *
+     * @param {Number} limit
+     * @returns {Object[]}
+     */
+    VarnishLog.prototype.findMostRequestedFiles = function(limit) {
+        var map = {},
+            list = [],
+            idx;
+
+        for (idx = 0; idx < this.data.length; idx++) {
+            if (!map[this.data[idx].url]) {
+                map[this.data[idx].url] = 0;
+            }
+
+            map[this.data[idx].url]++;
+        }
+
+        for (var url in map) {
+            if (map.hasOwnProperty(url)) {
+                for (idx = 0; idx < limit; idx++) {
+                    if (list[idx] === void 0 || list[idx].requests < map[url]) {
+                        list[idx] = {
+                            requests: map[url],
+                            url: url
+                        };
+                        break;
+                    }
+                }
+            }
+        }
+
+        return list;
+    };
+
     module.exports = VarnishLog;
 }());
