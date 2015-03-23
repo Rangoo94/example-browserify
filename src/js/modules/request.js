@@ -91,7 +91,6 @@
 
             window['jsonp_' + uid] = function(data) {
                 delete window['jsonp_' + uid];
-                console.log(data);
                 promise.resolve(data);
             };
 
