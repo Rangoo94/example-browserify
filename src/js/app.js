@@ -2,19 +2,14 @@
     'use strict';
 
     // Dispatch all boxes with tabs
-    var TabBox = require('./modules/tab-box'),
-        tabs = document.getElementsByClassName('tabs');
+    require('./views/tab-boxes');
 
-    //var request = require('./modules/request'),
-    //    VarnishLog = require('./modules/log/varnish');
-    //
-    //request.get('data/varnish.log').then(function(data) {
-    //    console.log('Success!', new VarnishLog(data));
-    //}, function(err) {
-    //    console.log('error!', err);
-    //});
+    // Dispatch Varnish tab
+    require('./views/varnish');
 
-    for (var i = 0; i < tabs.length; i++) {
-        TabBox.create(tabs[i]);
-    }
+    // Dispatch RSS tab
+    require('./views/rss');
+
+    // Dispatch API articles tab
+    require('./views/api-articles');
 }());
