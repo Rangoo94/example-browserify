@@ -7,7 +7,9 @@
         "module": true,
         "require": false,
 
-        "ActiveXObject": true
+        "console": false,
+
+        "ActiveXObject": false
     },
 
     "browser": true,
