@@ -85,7 +85,7 @@
 
             callbackParameter = callbackParameter || 'callback';
 
-            while(window['jsonp_' + uid]) {
+            while (window['jsonp_' + uid]) {
                 uid++;
             }
 

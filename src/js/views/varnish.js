@@ -49,7 +49,12 @@
 
         // Prepare full log
         document.getElementById('varnish-log').appendChild(
-            log.renderGrid({ column: 'remote', direction: 'asc' }, function(row) { return row.remote; })
+            log.renderGrid({
+                column: 'remote',
+                direction: 'asc'
+            }, function(row) {
+                return row.remote;
+            })
         );
     }, function(err) {
         console.log('error!', err);

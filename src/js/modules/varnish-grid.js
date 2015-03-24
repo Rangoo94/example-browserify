@@ -17,12 +17,14 @@
             cell.title = txt;
 
             return txt.length > len ? txt.substr(0, len) + '...' : txt;
-        }
+        };
     };
 
     COLUMNS = [
         { column: 'remote', label: 'Remote host' },
-        { column: 'date', label: 'Date', transform: function(date) { return date.toString(); } },
+        { column: 'date', label: 'Date', transform: function(date) {
+            return date.toString();
+        } },
         { column: 'method', label: 'Method' },
         { column: 'url', label: 'URL', transform: shortenText(40) },
         { column: 'status', label: 'Status' },
@@ -102,7 +104,13 @@
 
         for (var i = 0; i < COLUMNS.length; i++) {
             cell = document.createElement('td');
-            cell.innerText = COLUMNS[i].transform ? COLUMNS[i].transform(row[COLUMNS[i].column], cell) : row[COLUMNS[i].column];
+
+            if (COLUMNS[i].transform) {
+                cell.innerText = COLUMNS[i].transform(row[COLUMNS[i].column], cell);
+            } else {
+                cell.innerText = row[COLUMNS[i].column];
+            }
+
             rowEl.appendChild(cell);
         }
 

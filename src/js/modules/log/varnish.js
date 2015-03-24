@@ -90,6 +90,34 @@
     };
 
     /**
+     * Select biggest values from specified map
+     *
+     * @param {Object} map
+     * @param {Number} limit
+     * @param {String} key  Destination key of map key
+     * @param {String} value  Destination key of map value
+     * @returns {Object[]}
+     */
+    function findBiggest(map, limit, key, value) {
+        var list = [];
+
+        for (var property in map) {
+            if (map.hasOwnProperty(property)) {
+                for (var idx = 0; idx < limit; idx++) {
+                    if (list[idx] === void 0 || list[idx][value] < map[property]) {
+                        list[idx] = {};
+                        list[idx][key] = property;
+                        list[idx][value] = map[property];
+                        break;
+                    }
+                }
+            }
+        }
+
+        return list;
+    }
+
+    /**
      * Find specified number of most requested files
      *
      * @param {Number} limit
@@ -97,7 +125,6 @@
      */
     VarnishLog.prototype.findMostRequestedFiles = function(limit) {
         var map = {},
-            list = [],
             idx;
 
         for (idx = 0; idx < this.data.length; idx++) {
@@ -108,21 +135,7 @@
             map[this.data[idx].url]++;
         }
 
-        for (var url in map) {
-            if (map.hasOwnProperty(url)) {
-                for (idx = 0; idx < limit; idx++) {
-                    if (list[idx] === void 0 || list[idx].requests < map[url]) {
-                        list[idx] = {
-                            requests: map[url],
-                            url: url
-                        };
-                        break;
-                    }
-                }
-            }
-        }
-
-        return list;
+        return findBiggest(map, limit, 'url', 'requests');
     };
 
     /**
@@ -133,7 +146,6 @@
      */
     VarnishLog.prototype.findHostnamesWithMostTraffic = function(limit) {
         var map = {},
-            list = [],
             hostname,
             idx;
 
@@ -146,21 +158,7 @@
             map[hostname] += this.data[idx].size;
         }
 
-        for (hostname in map) {
-            if (map.hasOwnProperty(hostname)) {
-                for (idx = 0; idx < limit; idx++) {
-                    if (list[idx] === void 0 || list[idx].traffic < map[hostname]) {
-                        list[idx] = {
-                            traffic: map[hostname],
-                            url: hostname
-                        };
-                        break;
-                    }
-                }
-            }
-        }
-
-        return list;
+        return findBiggest(map, limit, 'url', 'traffic');
     };
 
     module.exports = VarnishLog;
