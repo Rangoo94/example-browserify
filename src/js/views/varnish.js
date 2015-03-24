@@ -2,7 +2,16 @@
     'use strict';
 
     var request = require('../modules/request'),
-        VarnishLog = require('../modules/log/varnish');
+        Loader = require('../modules/loader'),
+        VarnishLog = require('../modules/log/varnish'),
+
+        mostTrafficEl = document.getElementById('varnish-most-traffic'),
+        mostRequestedEl = document.getElementById('varnish-most-requested'),
+        logEl = document.getElementById('varnish-log'),
+
+        mostTrafficLoader = new Loader(mostTrafficEl, true),
+        mostRequestedLoader = new Loader(mostRequestedEl, true),
+        logLoader = new Loader(logEl, true);
 
     function buildList(items, buildItem) {
         var listEl = document.createElement('ul'),
@@ -25,7 +34,8 @@
 
         // Prepare list of hostnames with most traffic
         list = log.findHostnamesWithMostTraffic(5);
-        document.getElementById('varnish-most-traffic').appendChild(
+        mostTrafficLoader.hide();
+        mostTrafficEl.appendChild(
             buildList(list, function(el, item) {
                 var traffic = document.createElement('span');
                 traffic.innerText = item.traffic + ' bytes';
@@ -37,7 +47,8 @@
 
         // Prepare list of most requested files
         list = log.findMostRequestedFiles(5);
-        document.getElementById('varnish-most-requested').appendChild(
+        mostRequestedLoader.hide();
+        mostRequestedEl.appendChild(
             buildList(list, function(el, item) {
                 var requests = document.createElement('span');
                 requests.innerText = item.requests + ' requests';
@@ -48,7 +59,8 @@
         );
 
         // Prepare full log
-        document.getElementById('varnish-log').appendChild(
+        logLoader.hide();
+        logEl.appendChild(
             log.renderGrid({
                 column: 'remote',
                 direction: 'asc'

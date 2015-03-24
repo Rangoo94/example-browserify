@@ -43,5 +43,22 @@
         this.parentNode.removeChild(this.element);
     };
 
+    /**
+     * Create loader which is removed after callback is fired
+     *
+     * @param {Element} parentNode
+     * @param {Function} func
+     * @returns {Loader}
+     */
+    Loader.create = function(parentNode, func) {
+        var loader = new Loader(parentNode, true);
+
+        func(function() {
+            loader.hide();
+        });
+
+        return loader;
+    };
+
     module.exports = Loader;
 }());
