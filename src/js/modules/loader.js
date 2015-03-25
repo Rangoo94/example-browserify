@@ -44,10 +44,20 @@
     };
 
     /**
+     * Change 'loading' information to error message
+     *
+     * @param {String} message
+     */
+    Loader.prototype.setErrorMessage = function(message) {
+        this.element.className = 'loader error';
+        this.element.innerHTML = message;
+    };
+
+    /**
      * Create loader which is removed after callback is fired
      *
      * @param {Element} parentNode
-     * @param {Function} func
+     * @param {Function} func  Function to fire, first argument is callback that it has been done, second - error
      * @returns {Loader}
      */
     Loader.create = function(parentNode, func) {
@@ -55,6 +65,8 @@
 
         func(function() {
             loader.hide();
+        }, function(message) {
+            loader.setErrorMessage(message);
         });
 
         return loader;

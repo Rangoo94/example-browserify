@@ -76,11 +76,13 @@
          *
          * @param {String} url
          * @param {String} [callbackParameter]  Callback GET parameter
+         * @param {Number} [timeout]  Timeout in milliseconds
          * @returns {Promise}
          */
-        jsonp: function(url, callbackParameter) {
+        jsonp: function(url, callbackParameter, timeout) {
             var promise = new Promise(),
                 script = document.createElement('script'),
+                tmt,
                 uid = 0;
 
             callbackParameter = callbackParameter || 'callback';
@@ -91,8 +93,16 @@
 
             window['jsonp_' + uid] = function(data) {
                 delete window['jsonp_' + uid];
+                clearTimeout(tmt);
                 promise.resolve(data);
             };
+
+            if (timeout) {
+                tmt = setTimeout(function() {
+                    script.parentNode.removeChild(script);
+                    promise.reject();
+                }, timeout);
+            }
 
             document.body.appendChild(script);
 

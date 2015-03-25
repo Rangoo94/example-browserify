@@ -6,9 +6,9 @@
         ArticlesList = require('../modules/articles-list'),
         articlesEl = document.getElementById('api-articles');
 
-    Loader.create(articlesEl, function(done) {
+    Loader.create(articlesEl, function(done, error) {
         // Retrieve articles from JSONP
-        request.jsonp('http://rexxars.com/playground/testfeed/', 'callback').then(function(items) {
+        request.jsonp('http://rexxars.com/playground/testfeed/', 'callback', 3000).then(function(items) {
             var list,
                 el;
 
@@ -27,8 +27,8 @@
 
             done();
             articlesEl.appendChild(el);
-        }, function(err) {
-            console.log('Error:', err);
+        }, function() {
+            error('Error occurred while loading articles from API');
         });
     });
 }());

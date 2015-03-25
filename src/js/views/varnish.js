@@ -68,7 +68,9 @@
                 return row.remote;
             })
         );
-    }, function(err) {
-        console.log('error!', err);
+    }, function() {
+        mostTrafficLoader.setErrorMessage('Error occurred while loading Varnish log');
+        mostRequestedLoader.setErrorMessage('Error occurred while loading Varnish log');
+        logLoader.setErrorMessage('Error occurred while loading Varnish log');
     });
 }());

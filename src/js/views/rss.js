@@ -6,7 +6,7 @@
         ArticlesList = require('../modules/articles-list'),
         articlesEl = document.getElementById('rss-articles');
 
-    Loader.create(articlesEl, function(done) {
+    Loader.create(articlesEl, function(done, error) {
         // Retrieve articles from RSS
         RSS.fromURL('http://www.vg.no/rss/feed/forsiden/').then(function(feed) {
             var items = feed.getItems(),
@@ -24,8 +24,8 @@
 
             done();
             articlesEl.appendChild(el);
-        }, function(err) {
-            console.log('Error:', err);
+        }, function() {
+            error('Error occurred while loading articles from RSS');
         });
     });
 }());
