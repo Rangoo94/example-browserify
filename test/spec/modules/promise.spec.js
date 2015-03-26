@@ -1,7 +1,9 @@
 (function() {
     'use strict';
 
-    var Promise = require('../../../src/js/modules/promise');
+    var Promise = require('../../../src/js/modules/promise'),
+        OK_MESSAGE = 'Allright!',
+        ERROR_MESSAGE = 'Something wrong happened!';
 
     describe('Promise', function() {
         it('should resolve promise with tasks which are defined before', function() {
@@ -25,9 +27,9 @@
                 deferred = data;
             });
 
-            promise.resolve('Allright!');
+            promise.resolve(OK_MESSAGE);
 
-            expect(deferred).toEqual('Allright!');
+            expect(deferred).toEqual(OK_MESSAGE);
         });
 
         it('should start tasks which are defined after resolving', function() {
@@ -64,9 +66,9 @@
                 rejected = reason;
             });
 
-            promise.reject('Something happened');
+            promise.reject(ERROR_MESSAGE);
 
-            expect(rejected).toEqual('Something happened');
+            expect(rejected).toEqual(ERROR_MESSAGE);
         });
 
         it('should start fail tasks which are defined after rejecting', function() {

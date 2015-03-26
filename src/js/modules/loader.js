@@ -63,7 +63,7 @@
     Loader.create = function(parentNode, func) {
         var loader = new Loader(parentNode, true);
 
-        func(function() {
+        func.call(loader, function() {
             loader.hide();
         }, function(message) {
             loader.setErrorMessage(message);
