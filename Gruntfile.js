@@ -64,7 +64,7 @@ module.exports = function(grunt) {
                 dest: 'tmp/specs.js',
                 options: {
                     transform: [
-                        [ 'browserify-istanbul', {
+                        'brfs', [ 'browserify-istanbul', {
                             ignore: ['test/**'],
                             defaultIgnore: true
                         } ]

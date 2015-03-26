@@ -12,6 +12,7 @@
     "coveralls": "cat ./lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "devDependencies": {
+    "brfs": "^1.4.0",
     "browserify-istanbul": "^0.2.1",
     "coveralls": "^2.11.2",
     "grunt": "^0.4.5",

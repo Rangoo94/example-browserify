@@ -1,6 +1,22 @@
 (function() {
     'use strict';
 
+    function getChildren(element) {
+        if (element.children) {
+            return element.children;
+        } else {
+            var result = [];
+
+            for (var i = 0; i < element.childNodes.length; i++) {
+                if (element.childNodes[i].nodeType === Node.ELEMENT_NODE) {
+                    result.push(element.childNodes[i]);
+                }
+            }
+
+            return result;
+        }
+    }
+
     /**
      * Simple parsing XML/DOM element to plain object structure by definition.
      *
@@ -10,14 +26,15 @@
      */
     function domToObject(dom, definition) {
         var result = null,
-            tag = dom.tagName.toLowerCase();
+            tag = dom.tagName.toLowerCase(),
+            children = getChildren(dom);
 
         if (!definition) {
             definition = {};
         }
 
-        if ((definition[tag] && definition[tag]['@type'] === 'array') || dom.children.length) {
-            result = domListToObject(dom.children, definition[tag]);
+        if ((definition[tag] && definition[tag]['@type'] === 'array') || children.length) {
+            result = domListToObject(children, definition[tag]);
         } else {
             result = dom.textContent;
         }
@@ -68,6 +85,6 @@
     module.exports = function parseXML(str, definition) {
         var xml = (new DOMParser()).parseFromString(str, 'text/xml');
 
-        return domListToObject(xml.children, definition);
+        return domListToObject([ xml.documentElement ], definition);
     };
 }());

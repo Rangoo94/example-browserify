@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml version="2.0">
+    <something>
+        <is>here</is>
+    </something>
+    <anything>more</anything>
+    <item>
+        <value>A</value>
+    </item>
+    <item>
+        <value>B</value>
+    </item>
+    <item>
+        <value>C</value>
+    </item>
+    <item>
+        <value>D</value>
+    </item>
+    <another>
+        <item>
+            <value>E</value>
+        </item>
+        <item>
+            <value>F</value>
+        </item>
+        <item>
+            <value>G</value>
+        </item>
+    </another>
+</xml>
