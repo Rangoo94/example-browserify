@@ -21,17 +21,13 @@
      * Simple parsing XML/DOM element to plain object structure by definition.
      *
      * @param {Element} dom
-     * @param {Object} [definition]  Definition which explain where in structure is array of elements
+     * @param {Object} definition  Definition which explain where in structure is array of elements
      * @returns {Object}
      */
     function domToObject(dom, definition) {
         var result = null,
             tag = dom.tagName.toLowerCase(),
             children = getChildren(dom);
-
-        if (!definition) {
-            definition = {};
-        }
 
         if ((definition[tag] && definition[tag]['@type'] === 'array') || children.length) {
             result = domListToObject(children, definition[tag]);
