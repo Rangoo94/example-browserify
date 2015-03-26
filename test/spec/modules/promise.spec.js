@@ -1,7 +1,6 @@
 (function() {
     'use strict';
 
-    // jshint unused: false
     var Promise = require('../../../src/js/modules/promise');
 
     describe('Promise', function() {
@@ -16,6 +15,19 @@
             promise.resolve();
 
             expect(deferred).toBeTruthy();
+        });
+
+        it('should resolve promise with value', function() {
+            var promise = new Promise(),
+                deferred = false;
+
+            promise.then(function(data) {
+                deferred = data;
+            });
+
+            promise.resolve('Allright!');
+
+            expect(deferred).toEqual('Allright!');
         });
 
         it('should start tasks which are defined after resolving', function() {
@@ -42,6 +54,19 @@
             promise.reject();
 
             expect(rejected).toBeTruthy();
+        });
+
+        it('should reject promise with reason', function() {
+            var promise = new Promise(),
+                rejected = null;
+
+            promise.then(null, function(reason) {
+                rejected = reason;
+            });
+
+            promise.reject('Something happened');
+
+            expect(rejected).toEqual('Something happened');
         });
 
         it('should start fail tasks which are defined after rejecting', function() {
