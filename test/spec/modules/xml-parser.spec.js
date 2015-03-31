@@ -20,7 +20,7 @@
                 }
             };
 
-            expect(parseXML(xmlFile)).toEqual(expectedResult);
+            expect(parseXML.fromString(xmlFile)).toEqual(expectedResult);
         });
 
         it('should parse XML file to JSON with definition', function() {
@@ -44,7 +44,7 @@
                         ]
                     }
                 }
-            }, obj = parseXML(xmlFile2, {
+            }, obj = parseXML.fromString(xmlFile2, {
                 xml: {
                     item: {
                         '@type': 'array'

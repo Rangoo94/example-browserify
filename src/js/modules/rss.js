@@ -9,21 +9,21 @@
      * Understands RSS structure
      * Currently it allow only one channel
      *
-     * @param {String} str  XML string
+     * @param {String|Document} xml  XML string or document
      * @constructor
      */
-    function RSS(str) {
-        this.data = this.parse(str);
+    function RSS(xml) {
+        this.data = this.parse(xml);
     }
 
     /**
-     * Parse XML string to structure
+     * Parse XML string or document to structure
      *
-     * @param {String} str
+     * @param {String|Document} xml
      * @returns {Object}
      */
-    RSS.prototype.parse = function(str) {
-        var result = parseXML(str, {
+    RSS.prototype.parse = function(xml) {
+        var result = (typeof xml === 'string' ? parseXML.fromString : parseXML)(xml, {
             rss: {
                 channel: {
                     item: {
@@ -71,8 +71,8 @@
     RSS.fromURL = function(url) {
         var promise = new Promise();
 
-        request.get(url).then(function(data) {
-            promise.resolve(new RSS(data));
+        request.get(url, null, true).then(function(xhr) {
+            promise.resolve(new RSS(xhr.responseXML));
         }, function(xhr) {
             promise.reject(xhr);
         });

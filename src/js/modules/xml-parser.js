@@ -72,15 +72,26 @@
     }
 
     /**
+     * Expose function to parse XML document to object
+     *
+     * @param {Document} xmlDoc
+     * @param {Object} [definition]
+     * @returns {Object}
+     */
+    module.exports = function parseXML(xmlDoc, definition) {
+        return domListToObject([ xmlDoc.documentElement ], definition);
+    };
+
+    /**
      * Expose function to parse XML string to object
      *
      * @param {String} str
      * @param {Object} [definition]
      * @returns {Object}
      */
-    module.exports = function parseXML(str, definition) {
+    module.exports.fromString = function parseXMLFromString(str, definition) {
         var xml = (new DOMParser()).parseFromString(str, 'text/xml');
 
-        return domListToObject([ xml.documentElement ], definition);
+        return module.exports(xml, definition);
     };
 }());

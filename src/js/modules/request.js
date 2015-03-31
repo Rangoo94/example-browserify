@@ -28,9 +28,10 @@
          * @param {String} method
          * @param {String} url
          * @param {Object} data
+         * @param {Boolean} [plainXhr]  Should return plain XHR in promise instead of data?
          * @returns {Promise}
          */
-        request: function(method, url, data) {
+        request: function(method, url, data, plainXhr) {
             var promise = new Promise(),
                 xhr;
 
@@ -47,7 +48,7 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
-                        promise.resolve(xhr.responseText);
+                        promise.resolve(plainXhr ? xhr : xhr.responseText);
                     } else {
                         promise.reject(xhr);
                     }
@@ -65,10 +66,11 @@
          *
          * @param {String} url
          * @param {Object} data
+         * @param {Boolean} [plainXhr]
          * @returns {Promise}
          */
-        'get': function(url, data) {
-            return this.request('GET', url, data);
+        'get': function(url, data, plainXhr) {
+            return this.request('GET', url, data, plainXhr);
         },
 
         /**
